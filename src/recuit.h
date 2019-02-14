@@ -40,6 +40,8 @@ class Recuit
 
 		void	voisin(double* param, double* paramVoisin);
 
+		void	voisinAll(double* param, double* paramVoisin);
+
 		void	voisinRandom(double* param, double* paramVoisin);
 };
 

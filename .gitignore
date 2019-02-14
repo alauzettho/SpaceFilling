@@ -1,3 +1,4 @@
 /src/*.o
 /Doc/
 output.txt
+/src/spacefilling
