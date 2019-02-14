@@ -78,7 +78,7 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 		}
 
 		// Updating Output
-		// printResults(m_ndim, m_npoint, s, e);
+		printResults(m_ndim, m_npoint, s, e);
 
 		temp *= m_lambda; 
 		iter++;
@@ -99,7 +99,7 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 }
 
 
-void Recuit::voisin(double* param, double* paramVoisin)
+void Recuit::voisinAll(double* param, double* paramVoisin)
 {
 	int*	itArray	= new int[m_npoint];
 	double	product	= 1.0 / sqrt(m_npoint);
@@ -117,7 +117,6 @@ void Recuit::voisin(double* param, double* paramVoisin)
 			double	dist1	= 1e+14;
 			double	dist2	= 1e+15;
 			double	dist3	= 0.0;
-
 
 			for (int j = 0; j < m_npoint; j++)
 			{
@@ -137,11 +136,6 @@ void Recuit::voisin(double* param, double* paramVoisin)
 					}
 				}
 			}
-
-
-			itArray[i] = 1;
-			itArray[x] = 1;
-
 
 			for (int k = 0; k < m_ndim; k++)
 			{
@@ -167,12 +161,15 @@ void Recuit::voisin(double* param, double* paramVoisin)
 					paramVoisin[k * m_npoint + x] = 0.0;
 				}
 			}
+
+			itArray[i] = 1;
+			itArray[x] = 1;
 		}
 	}
 }
 
 
-void Recuit::voisinAll(double* param, double* paramVoisin)
+void Recuit::voisin(double* param, double* paramVoisin)
 {
 	double product = 1.0 / sqrt(m_npoint);
 
@@ -183,7 +180,6 @@ void Recuit::voisinAll(double* param, double* paramVoisin)
 		double	dist1	= 1e+14;
 		double	dist2	= 1e+15;
 
-		// Compute NN
 		for (int j = 0; j < m_npoint; j++)
 		{
 			if (j != i)
@@ -192,10 +188,9 @@ void Recuit::voisinAll(double* param, double* paramVoisin)
 
 				for (int k = 0; k < m_ndim; k++)
 				{
-					dist2 += (param[k * m_npoint + i] - param[k * m_npoint + j]) * (param[k * m_npoint + i] - param[k * m_npoint + j]);
+					dist2 += abs(param[k * m_npoint + i] - param[k * m_npoint + j]);
 				}
 
-				// Update Min Dist
 				if (dist2 < dist1)
 				{
 					x		= j;
@@ -204,12 +199,10 @@ void Recuit::voisinAll(double* param, double* paramVoisin)
 			}
 		}
 
-		// Add Component
 		for (int k = 0; k < m_ndim; k++)
 		{
-			paramVoisin[k * m_npoint + i] = param[k * m_npoint + i] + product * (param[k * m_npoint + i] - param[k * m_npoint + x]);
+			paramVoisin[k * m_npoint + i] += product * (param[k * m_npoint + i] - param[k * m_npoint + x]);
 
-			// TODO : Upgrade
 			if (paramVoisin[k * m_npoint + i] > 1.0)
 			{
 				paramVoisin[k * m_npoint + i] = 0.99;
