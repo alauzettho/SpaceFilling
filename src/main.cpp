@@ -28,9 +28,10 @@ using namespace std;
 // optim_method 		NM	BFGS	RS
 // estimation_method 	MC	MST		NN	ROS
 
-// export OMP_NUM_THREADS=4
+// Or arguments :
+// ./spacefilling ndim ndpoint RS MST
 
-// Complexite : maxiter * npoint * npoint C(num_threads, ndim)
+// export OMP_NUM_THREADS=4
 
 
 void launchOptimization(optim_method optim_method, estimation_method estimation_method,
@@ -90,18 +91,18 @@ int main(int argc, char *argv[])
 	cout << "##############################################################################################" << endl;
 	cout << "##############################################################################################" << endl;
 
-	int					sys		= 0;
-	int					dim		= getDim();
-	int					npoint	= getPoint();
-	double				f		= 0.0;
-	double*				a		= new double[npoint * dim];
-	double*				b		= new double[npoint * dim];
-	double*				param	= new double[npoint * dim];
-	optim_method		optim_method;
-	estimation_method	estimation_method;
+	int					sys					= 0;
+	int					dim					= (argc > 1) ? atoi(argv[1]) : getDim();
+	int					npoint				= (argc > 2) ? atoi(argv[2]) : getPoint();
+	double				f					= 0.0;
+	double*				a					= new double[npoint * dim];
+	double*				b					= new double[npoint * dim];
+	double*				param				= new double[npoint * dim];
+	optim_method		optim_method		= P_RECUIT_SIMULE;
+	estimation_method	estimation_method	= P_MINIMAL_SPANNING_TREE;
 
 
-	parse(dim, npoint, a, b, optim_method, estimation_method);
+	parse(dim, npoint, a, b, optim_method, estimation_method, argc, argv);	
 
 	initializeCenter(dim, npoint, param);
 
@@ -118,21 +119,8 @@ int main(int argc, char *argv[])
 	cout << "Time : " << time << endl;
 
 
-	if (dim == 2)
-	{
-		string command = "python ../python/plot2D.py";
-		sys = system(command.c_str());
-	}
-	else if (dim == 3)
-	{
-		string command = "python ../python/plot3D.py";
-		sys = system(command.c_str());
-	}
-	else
-	{
-		string command = "python ../python/plotND.py";
-		sys = system(command.c_str());
-	}
+	string command = "python ../python/plot.py "  + intToString(dim) + " " + intToString(npoint);
+	sys = system(command.c_str());
 
 	return(sys);
 }

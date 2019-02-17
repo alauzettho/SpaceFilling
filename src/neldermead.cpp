@@ -49,6 +49,8 @@ void NelderMead::minimize(double* param, const double* min_param, const double* 
 	double	f_new			= 0.0;	// Other function computation
 	string	message;
 
+	cout << "##################################### Starting Nelder Mead ###################################" << endl;
+
 	// Array to save function values
 	vector<double> f (m_simplex_size, 1e+15);
 
@@ -83,8 +85,6 @@ void NelderMead::minimize(double* param, const double* min_param, const double* 
 			x[i][i-1] = m_tau2;
 		}
 	}
-
-	cout << "##################################### Starting Nelder Mead ###################################" << endl;
 
 
 	// Evaluate and sort initial simplex
@@ -236,7 +236,7 @@ void NelderMead::minimize(double* param, const double* min_param, const double* 
 		double fval = f[0];
 
 		// Updating Output
-		printResults(m_ndim, m_npoint, param, fval);
+		// printResults(m_ndim, m_npoint, param, fval);
 	}
 
 

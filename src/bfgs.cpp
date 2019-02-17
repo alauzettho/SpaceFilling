@@ -57,7 +57,7 @@ void Bfgs::minimize(double* param, const double* min_param, const double* max_pa
 	nfuneval++;
 
 	// Updating Output
-	printResults(m_ndim, m_npoint, param, f);
+	// printResults(m_ndim, m_npoint, param, f);
 
 	m_function->calcGradient(param, f, g, nfuneval);
 
@@ -161,7 +161,7 @@ void Bfgs::minimize(double* param, const double* min_param, const double* max_pa
 
 
 		// Updating Output
-		printResults(m_ndim, m_npoint, param, f);
+		// printResults(m_ndim, m_npoint, param, f);
 
 
 		if (iter + 1 < m_maxiter && nfuneval + m_nparam < m_maxfuneval)

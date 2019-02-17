@@ -71,46 +71,71 @@ int getPoint()
 }
 
 
-void parse(int ndim, int npoint, double* a, double* b, optim_method& optim_method, estimation_method& estimation_method)
+void parse(int ndim, int npoint, double* a, double* b, optim_method& optim_method, estimation_method& estimation_method, int argc, char *argv[])
 {
-	// Defaults values
 	for (int i = 0; i < ndim * npoint; i++)
 	{
 		a[i] = 0.0;
 		b[i] = 1.0;
 	}
 
-	optim_method		= P_BFGS;
-	estimation_method	= P_MONTE_CARLO;
+	optim_method		= P_RECUIT_SIMULE;
+	estimation_method	= P_MINIMAL_SPANNING_TREE;
+	
 
-
-	// Import values
-	ifstream file("../input.txt");
-
-	if (file)
+	if (argc > 4)
 	{
-		string temp1;
-		string temp2;
+		string arg4 (argv[4]);
 
-		file >> ndim >> npoint >> temp1 >> temp2;
+		if		(arg4 == "MC")	estimation_method	= P_MONTE_CARLO;
+		else if	(arg4 == "NN")	estimation_method	= P_NEAREST_NEIGHBOR;
+		else if	(arg4 == "MST")	estimation_method	= P_MINIMAL_SPANNING_TREE;
+		else if	(arg4 == "ROS")	estimation_method	= P_ROSENBROCK;
+	}
+	if (argc > 3)
+	{
+		string arg3 (argv[3]);
 
-		if		(temp1 == "NM")			optim_method		= P_NELDER_MEAD;
-		else if	(temp1 == "BFGS")		optim_method		= P_BFGS;
-		else if	(temp1 == "RS")			optim_method		= P_RECUIT_SIMULE;
-
-
-		if		(temp2 == "MC")			estimation_method	= P_MONTE_CARLO;
-		else if	(temp2 == "NN")			estimation_method	= P_NEAREST_NEIGHBOR;
-		else if	(temp2 == "MST")		estimation_method	= P_MINIMAL_SPANNING_TREE;
-		else if	(temp2 == "ROS")		estimation_method	= P_ROSENBROCK;
-
-
-		file.close();
+		if		(arg3 == "NM")		optim_method	= P_NELDER_MEAD;
+		else if	(arg3 == "BFGS")	optim_method	= P_BFGS;
+		else if	(arg3 == "RS")		optim_method	= P_RECUIT_SIMULE;
 	}
 	else
 	{
-		cerr << "Error reading filename" << endl;
+		ifstream file("../input.txt");
+	
+		if (file)
+		{
+			int		ndim0;
+			int		npoint0;
+			string	temp1;
+			string	temp2;
+	
+			file >> ndim0 >> npoint0 >> temp1 >> temp2;
+	
+			if		(temp1 == "NM")			optim_method		= P_NELDER_MEAD;
+			else if	(temp1 == "BFGS")		optim_method		= P_BFGS;
+			else if	(temp1 == "RS")			optim_method		= P_RECUIT_SIMULE;
+	
+	
+			if		(temp2 == "MC")			estimation_method	= P_MONTE_CARLO;
+			else if	(temp2 == "NN")			estimation_method	= P_NEAREST_NEIGHBOR;
+			else if	(temp2 == "MST")		estimation_method	= P_MINIMAL_SPANNING_TREE;
+			else if	(temp2 == "ROS")		estimation_method	= P_ROSENBROCK;
+	
+	
+			file.close();
+		}
+		else
+		{
+			cerr << "Error reading filename" << endl;
+		}
 	}
+
+	// if	(estimation_method == P_MONTE_CARLO)			cout << "MONTE CARLO"			<< endl;
+	// if	(estimation_method == P_NEAREST_NEIGHBOR)		cout << "NEAREST NEIGHBOR"		<< endl;
+	// if	(estimation_method == P_MINIMAL_SPANNING_TREE)	cout << "MINIMAL SPANNING TREE"	<< endl;
+	// if	(estimation_method == P_ROSENBROCK)				cout << "ROSENBROCK"			<< endl;	
 }
 
 
@@ -124,20 +149,6 @@ void initializeCenter(int ndim, int npoint, double* param)
 	{
 		param[i] = (rand() % 100) / 100.0;
 	}
-
-	// param[0] = 0.001;
-	// param[1] = 0.002;
-	// param[2] = 0.999;
-	// param[3] = 0.998;
-	// param[4] = 0.003;
-	// param[5] = 0.997;
-	// param[6] = 0.996;
-	// param[7] = 0.004;
-	// param[8] = 0.01; 
-	// param[9] = 0.05;
-	// param[10] = 0.51;
-	// param[11] = 0.01;
-
 }
 
 

@@ -78,7 +78,7 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 		}
 
 		// Updating Output
-		printResults(m_ndim, m_npoint, s, e);
+		// printResults(m_ndim, m_npoint, s, e);
 
 		temp *= m_lambda; 
 		iter++;

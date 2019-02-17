@@ -7,13 +7,14 @@
 ###
 ########################################################################################
 
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
 myfile		= open('../input.txt', 'r')
 lineList	= myfile.readlines()
-N 			= int(lineList[1])
+N 			= int(sys.argv[1])
 colors		= np.random.rand(N)
 myfile.close()
 myfile		= open('../output.txt', 'r')
