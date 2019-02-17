@@ -40,7 +40,7 @@ NelderMead::~NelderMead()
 
 void NelderMead::minimize(double* param, const double* min_param, const double* max_param)
 {
-	cout << "##############################################################################################" << endl;
+	// cout << "##############################################################################################" << endl;
 
 	int		iter			= 0;
 	int		test			= -1;	// Value corresponding to the Nelder_Mead test that occurs at each iteration
@@ -49,7 +49,7 @@ void NelderMead::minimize(double* param, const double* min_param, const double* 
 	double	f_new			= 0.0;	// Other function computation
 	string	message;
 
-	cout << "##################################### Starting Nelder Mead ###################################" << endl;
+	// cout << "##################################### Starting Nelder Mead ###################################" << endl;
 
 	// Array to save function values
 	vector<double> f (m_simplex_size, 1e+15);
@@ -240,11 +240,11 @@ void NelderMead::minimize(double* param, const double* min_param, const double* 
 	}
 
 
-	if	(nfuneval >= m_nfunevalmax)	cout << "nfuneval = " 	+ doubleToString(nfuneval)	+ " > maxfuneval = "	+ doubleToString(m_nfunevalmax)	<< endl;
-	if	(iter >= m_nitermax)		cout << "iter = "		+ doubleToString(iter)		+ " > maxiter = "		+ doubleToString(m_nitermax)	<< endl;
+	// if	(nfuneval >= m_nfunevalmax)	cout << "nfuneval = " 	+ doubleToString(nfuneval)	+ " > maxfuneval = "	+ doubleToString(m_nfunevalmax)	<< endl;
+	// if	(iter >= m_nitermax)		cout << "iter = "		+ doubleToString(iter)		+ " > maxiter = "		+ doubleToString(m_nitermax)	<< endl;
 
-	cout << "###################################### Ending Nelder Mead ####################################" << endl;
-	cout << "##############################################################################################" << endl;
+	// cout << "###################################### Ending Nelder Mead ####################################" << endl;
+	// cout << "##############################################################################################" << endl;
 }
 
 

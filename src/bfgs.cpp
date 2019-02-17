@@ -24,7 +24,7 @@ Bfgs::~Bfgs(){}
 
 void Bfgs::minimize(double* param, const double* min_param, const double* max_param)
 {
-	cout << "##############################################################################################" << endl;
+	// cout << "##############################################################################################" << endl;
 	int		iter			= 0;
 	int		nfuneval		= 0;
 	double  f				= 0.0;
@@ -51,7 +51,7 @@ void Bfgs::minimize(double* param, const double* min_param, const double* max_pa
 		P.push_back(line);
 	}
 
-	cout << "######################################## Starting BFGS #######################################" << endl;
+	// cout << "######################################## Starting BFGS #######################################" << endl;
 
 	f = m_function->calcf(param);
 	nfuneval++;
@@ -178,13 +178,13 @@ void Bfgs::minimize(double* param, const double* min_param, const double* max_pa
 		iter++;
 	}
 
-	cout << "######################################### Ending BFGS ########################################" << endl;
-	cout << "##############################################################################################" << endl;
-	if		(normInf(m_nparam, g) <= m_tolg)	cout << "||g|| = "		+ doubleToString(normInf(m_nparam, g)) + " < tolg = " + doubleToString(m_tolg) << endl;
-	else if	(nfuneval >= m_maxfuneval)			cout << "nfuneval = " 	+ doubleToString(nfuneval) + " > maxfuneval = " + doubleToString(m_maxfuneval) << endl;
-	else if	(iter >= m_maxiter)					cout << "iter = "		+ doubleToString(iter) + " > maxiter = " + doubleToString(m_maxiter) << endl;
-	else if	(ys <= 0)							cout << "Y'S = "		+ doubleToString(ys) + " < 0" << endl;
-	else										cout << "Unknown stop" << endl;
+	// cout << "######################################### Ending BFGS ########################################" << endl;
+	// cout << "##############################################################################################" << endl;
+	// if		(normInf(m_nparam, g) <= m_tolg)	cout << "||g|| = "		+ doubleToString(normInf(m_nparam, g)) + " < tolg = " + doubleToString(m_tolg) << endl;
+	// else if	(nfuneval >= m_maxfuneval)			cout << "nfuneval = " 	+ doubleToString(nfuneval) + " > maxfuneval = " + doubleToString(m_maxfuneval) << endl;
+	// else if	(iter >= m_maxiter)					cout << "iter = "		+ doubleToString(iter) + " > maxiter = " + doubleToString(m_maxiter) << endl;
+	// else if	(ys <= 0)							cout << "Y'S = "		+ doubleToString(ys) + " < 0" << endl;
+	// else										cout << "Unknown stop" << endl;
 
 
 	delete[] s;

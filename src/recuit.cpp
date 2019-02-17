@@ -13,7 +13,7 @@ using namespace std;
 Recuit::Recuit(Function* function, int ndim, int npoint) : m_function (function), m_ndim (ndim), m_npoint (npoint)
 {
 	m_temp_init		= 10;
-	m_lambda		= 0.95;
+	m_lambda		= 0.5;
 	m_maxiter		= 5000;
 	m_nparam		= m_npoint * m_ndim;
 }
@@ -24,7 +24,7 @@ Recuit::~Recuit(){}
 
 void Recuit::minimize(double* param, const double* min_param, const double* max_param)
 {
-	cout << "##############################################################################################" << endl;
+	// cout << "##############################################################################################" << endl;
 
 	int		iter			= 0;
 	double	e				= m_function->calcf(param);
@@ -44,7 +44,7 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 	}
 
 
-	cout << "####################################### Starting Recuit ######################################" << endl;
+	// cout << "####################################### Starting Recuit ######################################" << endl;
 
 
 	while (iter < m_maxiter)
@@ -85,7 +85,7 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 	}
 
 
-	cout << "######################################## Ending Recuit #######################################" << endl;
+	// cout << "######################################## Ending Recuit #######################################" << endl;
 
 	for (int i = 0; i < m_nparam; i++)
 	{
@@ -95,7 +95,7 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 	delete[] s;
 	delete[] g;
 
-	cout << "##############################################################################################" << endl;
+	// cout << "##############################################################################################" << endl;
 }
 
 

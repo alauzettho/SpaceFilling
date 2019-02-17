@@ -28,8 +28,13 @@ M			= len(lineList)
 
 myfile.close()
 
+F = 0
 
-plt.figure(figsize = (10, 15), num = 'Space Filling : ' + str(ndim) + " | " + str(npoint))
+for i in range(M) :
+	if (lineList[i][0:3] == "F :") :
+		F = lineList[i][4:15]
+
+plt.figure(figsize = (10, 15), num = 'Space Filling : ' + str(ndim) + " | " + str(npoint) + " | " + str(F))
 
 if (ndim == 3) :
 	ax		= plt.axes(projection='3d')
