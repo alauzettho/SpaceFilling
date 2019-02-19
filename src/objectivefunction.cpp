@@ -116,10 +116,9 @@ double Function::monteCarlo(double* param)
 {
 	double fvalue = 0.0;
 	double square = m_ndim / 12.0;
-	double hquare = 1.0 / (sqrt(12.0) * pow(m_npoint, 1.0 / (m_ndim + 4)));
+	double hquare = 1.0 / (12.0 * pow(m_npoint, 2.0 / (m_ndim + 4)));
 	double coeff1 = - 1.0 / (2.0 * square * hquare);
 	double coeff2 = 0.0;
-	double coeff3 = 0.0;
 	double* diffv = new double[m_ndim];
 
 
@@ -134,8 +133,7 @@ double Function::monteCarlo(double* param)
 				diffv[k] = param[k * m_npoint + i] - param[k * m_npoint + j];
 			}
 
-			coeff3 = squareNorm(m_ndim, diffv);
-			coeff2 += exp(coeff1 * coeff3);
+			coeff2 += exp(coeff1 * squareNorm(m_ndim, diffv));
 		}
 
 		fvalue += pow(coeff2, m_q - 1);
@@ -152,6 +150,7 @@ double Function::nearestNeighbor(double* param)
 	double	dist	= 0.0;
 	double	norm	= 0.0;
 	double	fvalue	= 0.0;
+	double	coeff1	= m_ndim * (1 - m_q);
 	double* diffv	= new double[m_ndim];
 
 
@@ -176,7 +175,7 @@ double Function::nearestNeighbor(double* param)
 			}
 		}
 
-		fvalue+= pow(dist, m_ndim * (1 - m_q));
+		fvalue += pow(dist, coeff1);
 	}
 
 	delete[] diffv;
