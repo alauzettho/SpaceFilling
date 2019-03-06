@@ -11,9 +11,8 @@
 using namespace std;
 
 
-Function::Function(estimation_method estimation_method, int ndim, int npoint) : m_estimation_method (estimation_method), m_ndim (ndim), m_npoint (npoint)
+Function::Function(estimation_method estimation_method, int ndim, int npoint, double q) : m_estimation_method (estimation_method), m_ndim (ndim), m_npoint (npoint), m_q (q)
 {
-	m_q				= 0.5;
 	m_eps_diff		= 0.00001;
 	m_nparam 		= m_npoint * m_ndim;
 }
@@ -64,6 +63,17 @@ void Function::calcGradient(double* param, const double f, double* g, int& nfune
 
 		// cout << "g[" << i << "] = (" << fp << " - " << fm << ") / " << m_eps_diff << " = " << g[i] << endl;
 	}
+}
+
+
+void Function::calcFVector(double* param, double* fVector)
+{
+	fVector[0] = monteCarlo(param);
+	fVector[1] = nearestNeighbor(param);
+	fVector[2] = maximin(param);
+	fVector[3] = aeMaximizer(param);
+	fVector[4] = shannon(param);
+	fVector[5] = minimalSpanningTree(param);
 }
 
 

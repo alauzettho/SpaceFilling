@@ -71,7 +71,7 @@ int getPoint()
 }
 
 
-void parse(int ndim, int npoint, double* a, double* b, optim_method& optim_method, estimation_method& estimation_method, int argc, char *argv[])
+void parse(int ndim, int npoint, double* a, double* b, optim_method& optim_method, estimation_method& estimation_method, int argc, char* argv[])
 {
 	for (int i = 0; i < ndim * npoint; i++)
 	{
@@ -157,6 +157,31 @@ void printResults(int ndim, int npoint, double* param, double f)
 
 	cout << endl << "F :	" + doubleToString(f) << endl;
 	cout << endl << "Param :" << endl;
+
+	for (int i = 0; i < ndim; i++)
+	{
+		for (int j = 0; j < npoint; j++)
+		{
+			cout << doubleToString(param[i * npoint + j]) + "	";
+		}
+		cout << endl;
+	}
+}
+
+
+void printFinalResults(int ndim, int npoint, int numberEstim, double* param, double* fVector, string fileName)
+{
+	const char* temp	= fileName.c_str();
+	stdout				= freopen(temp, "w", stdout);
+
+
+	for (int i = 0; i < numberEstim; i++)
+	{
+		cout << doubleToString(fVector[i]) + "	";
+	}
+
+	cout << endl;
+	cout << endl;
 
 	for (int i = 0; i < ndim; i++)
 	{

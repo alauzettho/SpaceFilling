@@ -137,12 +137,12 @@ void Recuit::voisin(int iter, double* param, double* paramVoisin)
 
 			if (paramVoisin[k * m_npoint + i] > 1.0)
 			{
-				paramVoisin[k * m_npoint + i] = 0.99;
+				paramVoisin[k * m_npoint + i] = 1.0;
 			}
 
 			if (paramVoisin[k * m_npoint + i] < 0.0)
 			{
-				paramVoisin[k * m_npoint + i] = 0.01;
+				paramVoisin[k * m_npoint + i] = 0.0;
 			}
 		}
 	}

@@ -28,11 +28,13 @@ class Function
 
 
 	public:
-		Function(estimation_method estimation_method, int ndim, int npoint);
+		Function(estimation_method estimation_method, int ndim, int npoint, double q);
 
 		~Function();
 
 		void	calcGradient(double* param, const double f, double* g, int& nfuneval);
+
+		void	calcFVector(double* param, double* fVector);
 
 		double	squareNorm(int size, double* vector);
 
@@ -119,6 +121,5 @@ struct DisjointSets
 		}
 	}
 };
-
 
 #endif 
