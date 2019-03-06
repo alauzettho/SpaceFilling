@@ -29,7 +29,7 @@ using namespace std;
 // estimation_method 	MC	NN	MM	AE	KL	MST
 
 // Or arguments :
-// ./spacefilling ndim ndpoint RS MST
+// ./spacefilling ndim ndpoint RS MST number
 
 // export OMP_NUM_THREADS=4
 
@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
 	int					sys					= 0;
 	int					dim					= (argc > 1) ? atoi(argv[1]) : getDim();
 	int					npoint				= (argc > 2) ? atoi(argv[2]) : getPoint();
-	double				q					= 0.9;
+	double				q					= 0.5;
 	double				f					= 0.0;
 	double*				a					= new double[npoint * dim];
 	double*				b					= new double[npoint * dim];
@@ -120,8 +120,8 @@ int main(int argc, char *argv[])
 
 
 	// Python Plot
-	string command = "python ../python/plot.py "  + intToString(dim) + " " + intToString(npoint);
-	sys = system(command.c_str());
+	// string command = "python ../python/plot.py "  + intToString(dim) + " " + intToString(npoint);
+	// sys = system(command.c_str());
 
 
 	// Benchmark Output

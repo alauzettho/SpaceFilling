@@ -3,3 +3,4 @@
 output.txt
 /src/spacefilling
 bench.sh
+/Results/*
