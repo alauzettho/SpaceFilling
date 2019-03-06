@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
 	// Benchmark Output
 	string fileName	= "../Results/";
 	fileName += argv[4];
-	fileName += "_";
+	fileName += "/";
 	fileName += doubleToString(q);
 	fileName += "_";
 	fileName += intToString(dim);

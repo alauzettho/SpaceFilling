@@ -169,19 +169,21 @@ void printResults(int ndim, int npoint, double* param, double f)
 }
 
 
-void printFinalResults(int ndim, int npoint, int numberEstim, double* param, double* fVector, string fileName)
+void printFinalResults(int ndim, int npoint, int numberEstim, double* param, double* fVector, string fileName1)
 {
-	const char* temp	= fileName.c_str();
-	stdout				= freopen(temp, "w", stdout);
+	string fileName2	= fileName1 + "_F";
+	const char* temp1	= fileName2.c_str();
+	const char* temp2	= fileName1.c_str();
+	
 
+	stdout = freopen(temp1, "w", stdout);
 
 	for (int i = 0; i < numberEstim; i++)
 	{
 		cout << doubleToString(fVector[i]) + "	";
 	}
 
-	cout << endl;
-	cout << endl;
+	stdout = freopen(temp2, "w", stdout);
 
 	for (int i = 0; i < ndim; i++)
 	{
