@@ -25,6 +25,9 @@ enum estimation_method
 	P_MONTE_CARLO,
 	P_NEAREST_NEIGHBOR,
 	P_MINIMAL_SPANNING_TREE,
+	P_MAXIMIN,
+	P_AE,
+	P_KL,
 	P_ROSENBROCK
 };
 

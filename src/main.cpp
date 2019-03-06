@@ -26,7 +26,7 @@ using namespace std;
 // ndim
 // npoint
 // optim_method 		NM	BFGS	RS
-// estimation_method 	MC	MST		NN	ROS
+// estimation_method 	MC	MST		NN	MM	AE	KL	ROS
 
 // Or arguments :
 // ./spacefilling ndim ndpoint RS MST
@@ -121,6 +121,8 @@ int main(int argc, char *argv[])
 
 	string command = "python ../python/plot.py "  + intToString(dim) + " " + intToString(npoint);
 	sys = system(command.c_str());
+
+	// TODO modify print and python for bench
 
 	return(sys);
 }

@@ -197,8 +197,6 @@ void Bfgs::minimize(double* param, const double* min_param, const double* max_pa
 
 void Bfgs::getStep(int iter, double* param, const double* min_param, const double* max_param, double* d, double& alpha, double& f, int& nfuneval)
 {
-	// TODO : Upgrade to Wolfe Armijo Goldstein
-
 	if (iter == 0)
 	{
 		alpha = 1.0 / normInf(m_nparam, d);

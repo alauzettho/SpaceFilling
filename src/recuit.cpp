@@ -2,6 +2,7 @@
 ///
 /// Created by Thomas Alauzet on November 28, 2018.
 /// Copyright 2018. All rights reserved.
+/// Able to add pragma OMP.
 ///
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -12,7 +13,6 @@ using namespace std;
 
 Recuit::Recuit(Function* function, int ndim, int npoint) : m_function (function), m_ndim (ndim), m_npoint (npoint)
 {
-	// TODO : find better param
 	m_temp_init		= 10000;
 	m_lambda		= 0.999;
 	m_maxiter		= 5000;
@@ -37,7 +37,6 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 	double*	sn				= new double[m_nparam];
 
 	
-	#pragma omp parallel for
 	for (int i = 0; i < m_nparam; i++)
 	{
 		s[i] = param[i];

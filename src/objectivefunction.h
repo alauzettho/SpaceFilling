@@ -45,6 +45,12 @@ class Function
 		double	nearestNeighbor(double* param);
 
 		double	minimalSpanningTree(double* param);
+
+		double	maximin(double* param);
+
+		double	aeMaximizer(double* param);
+
+		double	shannon(double* param);
 };
 
 

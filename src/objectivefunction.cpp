@@ -2,6 +2,7 @@
 ///
 ///	Created by Thomas Alauzet on November 13, 2018.
 /// Copyright 2018. All rights reserved.
+/// Able to add pragma OMP.
 ///
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -36,7 +37,6 @@ double Function::squareNorm(int size, double* vector)
 
 void Function::calcGradient(double* param, const double f, double* g, int& nfuneval)
 {
-	// TODO : Upgrade on boundaries
 	double	fp;
 	double	fm;
 	double* new_param = new double[m_nparam];
@@ -62,7 +62,7 @@ void Function::calcGradient(double* param, const double f, double* g, int& nfune
 
 		new_param[i] += m_eps_diff;
 
-		//cout << "g[" << i << "] = (" << fp << " - " << fm << ") / " << m_eps_diff << " = " << g[i] << endl;
+		// cout << "g[" << i << "] = (" << fp << " - " << fm << ") / " << m_eps_diff << " = " << g[i] << endl;
 	}
 }
 
@@ -86,6 +86,18 @@ double Function::calcf(double* param)
 	else if (m_estimation_method == P_ROSENBROCK)
 	{
 		fvalue = rosenbrock(param);
+	}
+	else if (m_estimation_method == P_MAXIMIN)
+	{
+		fvalue = maximin(param);
+	}
+	else if (m_estimation_method == P_AE)
+	{
+		fvalue = aeMaximizer(param);
+	}
+	else if (m_estimation_method == P_KL)
+	{
+		fvalue = shannon(param);
 	}
 
 
@@ -248,7 +260,7 @@ double Graph::kruskalMST(int ndim, double q)
 
 		if (set_u != set_v)
 		{
-			//cout << u << " - " << v << endl;
+			// cout << u << " - " << v << endl;
 
 			mst_wt += pow(it->first, gamma);
 
@@ -257,4 +269,106 @@ double Graph::kruskalMST(int ndim, double q)
 	}
 
 	return(mst_wt);
+}
+
+
+double Function::maximin(double* param)
+{
+	double	dist	= 0.0;
+	double	norm	= 0.0;
+	double	fvalue	= 1e+15;
+	double* diffv	= new double[m_ndim];
+
+
+	for (int i = 0; i < m_npoint; i++)
+	{
+		dist = 1e+15;
+		for (int j = 0; j < m_npoint; j++)
+		{
+			if (i != j)
+			{
+				for (int k = 0; k < m_ndim; k++)
+				{
+					diffv[k] = param[k * m_npoint + i] - param[k * m_npoint + j];
+				}
+				
+				norm = sqrt(squareNorm(m_ndim, diffv));
+
+				if (norm < dist)
+				{
+					dist = norm;
+				}
+			}
+		}
+
+		if (dist < fvalue)
+		{
+			fvalue = dist;
+		}
+	}
+
+	delete[] diffv;
+
+	return(-fvalue);
+}
+
+
+double Function::aeMaximizer(double* param)
+{
+	double	dist	= 0.0;
+	double	fvalue	= 0.0;
+	double* diffv	= new double[m_ndim];
+
+
+	for (int i = 0; i < m_npoint - 1; i++)
+	{
+		for (int j = i + 1; j < m_npoint; j++)
+		{
+			for (int k = 0; k < m_ndim; k++)
+			{
+				diffv[k] = param[k * m_npoint + i] - param[k * m_npoint + j];
+			}
+
+			dist = squareNorm(m_ndim, diffv);
+
+			fvalue += 1 / dist;
+		}
+	}
+
+	delete[] diffv;
+
+	return(fvalue);
+}
+
+
+double Function::shannon(double* param)
+{
+	double fvalue = 0.0;
+	double square = m_ndim / 12.0;
+	double hquare = 1.0 / (12.0 * pow(m_npoint, 2.0 / (m_ndim + 4)));
+	double coeff1 = - 1.0 / (2.0 * square * hquare);
+	double coeff2 = 0.0;
+	double* diffv = new double[m_ndim];
+
+
+	for (int i = 0; i < m_npoint; i++)
+	{
+		coeff2 = 0.0;
+
+		for (int j = i; j < m_npoint; j++)
+		{
+			for (int k = 0; k < m_ndim; k++)
+			{
+				diffv[k] = param[k * m_npoint + i] - param[k * m_npoint + j];
+			}
+
+			coeff2 += exp(coeff1 * squareNorm(m_ndim, diffv));
+		}
+
+		fvalue += log(coeff2);
+	}
+
+	delete[] diffv;
+
+	return(fvalue);
 }

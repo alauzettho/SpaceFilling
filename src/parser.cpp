@@ -89,6 +89,9 @@ void parse(int ndim, int npoint, double* a, double* b, optim_method& optim_metho
 
 		if		(arg4 == "MC")	estimation_method	= P_MONTE_CARLO;
 		else if	(arg4 == "NN")	estimation_method	= P_NEAREST_NEIGHBOR;
+		else if	(arg4 == "MM")	estimation_method	= P_MAXIMIN;
+		else if	(arg4 == "AE")	estimation_method	= P_AE;
+		else if	(arg4 == "KL")	estimation_method	= P_KL;
 		else if	(arg4 == "MST")	estimation_method	= P_MINIMAL_SPANNING_TREE;
 		else if	(arg4 == "ROS")	estimation_method	= P_ROSENBROCK;
 	}
@@ -117,13 +120,14 @@ void parse(int ndim, int npoint, double* a, double* b, optim_method& optim_metho
 			else if	(temp1 == "BFGS")		optim_method		= P_BFGS;
 			else if	(temp1 == "RS")			optim_method		= P_RECUIT_SIMULE;
 	
-	
-			if		(temp2 == "MC")			estimation_method	= P_MONTE_CARLO;
-			else if	(temp2 == "NN")			estimation_method	= P_NEAREST_NEIGHBOR;
-			else if	(temp2 == "MST")		estimation_method	= P_MINIMAL_SPANNING_TREE;
-			else if	(temp2 == "ROS")		estimation_method	= P_ROSENBROCK;
-	
-	
+			if		(temp2 == "MC")		estimation_method	= P_MONTE_CARLO;
+			else if	(temp2 == "NN")		estimation_method	= P_NEAREST_NEIGHBOR;
+			else if	(temp2 == "MM")		estimation_method	= P_MAXIMIN;
+			else if	(temp2 == "AE")		estimation_method	= P_AE;
+			else if	(temp2 == "KL")		estimation_method	= P_KL;
+			else if	(temp2 == "MST")	estimation_method	= P_MINIMAL_SPANNING_TREE;
+			else if	(temp2 == "ROS")	estimation_method	= P_ROSENBROCK;
+
 			file.close();
 		}
 		else
@@ -131,11 +135,6 @@ void parse(int ndim, int npoint, double* a, double* b, optim_method& optim_metho
 			cerr << "Error reading filename" << endl;
 		}
 	}
-
-	// if	(estimation_method == P_MONTE_CARLO)			cout << "MONTE CARLO"			<< endl;
-	// if	(estimation_method == P_NEAREST_NEIGHBOR)		cout << "NEAREST NEIGHBOR"		<< endl;
-	// if	(estimation_method == P_MINIMAL_SPANNING_TREE)	cout << "MINIMAL SPANNING TREE"	<< endl;
-	// if	(estimation_method == P_ROSENBROCK)				cout << "ROSENBROCK"			<< endl;	
 }
 
 
