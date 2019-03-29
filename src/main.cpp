@@ -22,16 +22,12 @@
 using namespace std;
 
 
-// Input File :
-// ndim
-// npoint
-// optim_method 		NM	BFGS	RS
-// estimation_method 	MC	NN	MM	AE	KL	MST
-
-// Or arguments :
 // ./spacefilling ndim ndpoint RS MST number
+// ndim					Int
+// npoint				Int
+// optim_method 		NM	BFGS	RS
+// estimation_method 	MC	NN		MM	AE	KL	MST
 
-// export OMP_NUM_THREADS=4
 
 
 void launchOptimization(optim_method optim_method, estimation_method estimation_method,
@@ -94,9 +90,9 @@ int main(int argc, char *argv[])
 	cout << "##############################################################################################" << endl;
 
 	int					sys					= 0;
-	int					dim					= (argc > 1) ? atoi(argv[1]) : getDim();
-	int					npoint				= (argc > 2) ? atoi(argv[2]) : getPoint();
-	double				q					= 0.5;
+	int					dim					= (argc > 1) ? atoi(argv[1]) : 2;
+	int					npoint				= (argc > 2) ? atoi(argv[2]) : 16;
+	double				q					= 1.5;
 	double				f					= 0.0;
 	double*				a					= new double[npoint * dim];
 	double*				b					= new double[npoint * dim];
@@ -108,9 +104,13 @@ int main(int argc, char *argv[])
 
 	parse(dim, npoint, a, b, optim_method, estimation_method, argc, argv);
 	initializeCenter(dim, npoint, param);
+
 	double time = omp_get_wtime();
+
 	launchOptimization(optim_method, estimation_method, dim, npoint, q, param, a, b, f, fVector);
+
 	time = omp_get_wtime() - time;
+
 	printResults(dim, npoint, param, f);
 
 
@@ -120,8 +120,8 @@ int main(int argc, char *argv[])
 
 
 	// Python Plot
-	// string command = "python ../python/plot.py "  + intToString(dim) + " " + intToString(npoint);
-	// sys = system(command.c_str());
+	string command = "python ../python/plot.py "  + intToString(dim) + " " + intToString(npoint);
+	sys = system(command.c_str());
 
 
 	// Benchmark Output
@@ -135,7 +135,8 @@ int main(int argc, char *argv[])
 	fileName += intToString(npoint);
 	fileName += "_";
 	fileName += argv[5];
-	printFinalResults(dim, npoint, 6, param, fVector, fileName);
+
+	// printFinalResults(dim, npoint, 6, param, fVector, fileName);
 
 
 	delete[] a;

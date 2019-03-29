@@ -34,4 +34,4 @@ clean:
 	rm -rf ../output.txt
 
 run:
-	./spacefilling
+	./spacefilling 2 16 RS MST 1

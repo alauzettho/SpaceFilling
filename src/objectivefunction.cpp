@@ -60,8 +60,6 @@ void Function::calcGradient(double* param, const double f, double* g, int& nfune
 		g[i] = (fp - fm) / (2 * m_eps_diff);
 
 		new_param[i] += m_eps_diff;
-
-		// cout << "g[" << i << "] = (" << fp << " - " << fm << ") / " << m_eps_diff << " = " << g[i] << endl;
 	}
 }
 
@@ -114,7 +112,12 @@ double Function::calcf(double* param)
 	// Checking if parameters are within boudaries
 	for (int i = 0; i < m_nparam; i++)
 	{
-		if (param[i] > 1.0 || param[i] < 0.0) fvalue = 1e+15;
+		if (param[i] > 1.0 || param[i] < 0.0)
+		{
+			cout << "OUT OF BOUND !!" << endl;
+
+			fvalue = 1e+15;
+		}
 	}
 
 	return(fvalue);
@@ -123,6 +126,8 @@ double Function::calcf(double* param)
 
 double Function::rosenbrock(double* param)
 {
+	// cout << "ROS" << endl;
+
 	double fvalue = 0.0;
 
 	for (int i = 0; i < m_nparam - 1; i++)
@@ -136,6 +141,8 @@ double Function::rosenbrock(double* param)
 
 double Function::monteCarlo(double* param)
 {
+	// cout << "MC" << endl;
+
 	double fvalue = 0.0;
 	double square = m_ndim / 12.0;
 	double hquare = 1.0 / (12.0 * pow(m_npoint, 2.0 / (m_ndim + 4)));
@@ -163,12 +170,19 @@ double Function::monteCarlo(double* param)
 
 	delete[] diffv;
 
-	return(-fvalue);
+	if (m_q <= 1)
+	{
+		fvalue *= -1;
+	}
+
+	return(fvalue);
 }
 
 
 double Function::nearestNeighbor(double* param)
 {
+	// cout << "NN" << endl;
+
 	double	dist	= 0.0;
 	double	norm	= 0.0;
 	double	fvalue	= 0.0;
@@ -202,18 +216,24 @@ double Function::nearestNeighbor(double* param)
 
 	delete[] diffv;
 
-	return(-fvalue);
+	if (m_q <= 1)
+	{
+		fvalue *= -1;
+	}
+
+	return(fvalue);
 }
 
 
 double Function::minimalSpanningTree(double* param)
 {
+	// cout << "MST" << endl;
+
 	int		V		= m_npoint;
 	int		E		= V * (V - 1) / 2;
 	double	dist	= 0.0;
 	double	fvalue	= 0.0;
 	double* diffv	= new double[m_ndim];
-
 
 	Graph g(V, E);
 
@@ -237,7 +257,12 @@ double Function::minimalSpanningTree(double* param)
 
 	delete[] diffv;
 
-	return(-fvalue);
+	if (m_q <= 1)
+	{
+		fvalue *= -1;
+	}
+
+	return(fvalue);
 }
 
 
@@ -271,9 +296,7 @@ double Graph::kruskalMST(int ndim, double q)
 		if (set_u != set_v)
 		{
 			// cout << u << " - " << v << endl;
-
 			mst_wt += pow(it->first, gamma);
-
 			ds.merge(set_u, set_v);
 		}
 	}
@@ -284,6 +307,8 @@ double Graph::kruskalMST(int ndim, double q)
 
 double Function::maximin(double* param)
 {
+	// cout << "MM" << endl;
+
 	double	dist	= 0.0;
 	double	norm	= 0.0;
 	double	fvalue	= 1e+15;
@@ -325,6 +350,8 @@ double Function::maximin(double* param)
 
 double Function::aeMaximizer(double* param)
 {
+	// cout << "AE" << endl;
+
 	double	dist	= 0.0;
 	double	fvalue	= 0.0;
 	double* diffv	= new double[m_ndim];
@@ -353,6 +380,8 @@ double Function::aeMaximizer(double* param)
 
 double Function::shannon(double* param)
 {
+	// cout << "KL" << endl;
+
 	double fvalue = 0.0;
 	double square = m_ndim / 12.0;
 	double hquare = 1.0 / (12.0 * pow(m_npoint, 2.0 / (m_ndim + 4)));
