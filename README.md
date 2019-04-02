@@ -1,26 +1,38 @@
 # SpaceFilling
-Optimization Algorithm for Space Filling Designs
+Optimization Algorithm for generating Space Filling Designs
 
 A quick start : source start.sh
 
-Your main concern is the input.txt file:
 
 
-ndim                  An int indicating the problem's dimension
-npoint                An int indicating the number of points
-optim_method 		      The optimization method. Choose between : NM	BFGS	RS. Best method is RS
-estimation_method 	  The estimation method. Choose between   : MC	MST		NN	ROS
-
-
-
-src/ folder contains all c++ files and main algorithms. Use:
+The src/ folder contains all c++ files and the main algorithm. Use:
 
   - "make" to compile
-  - "make run" to start program
-  - "make clean" tto clean all
-  
-To launch the program you can use ./spacefilling in src/
+  - "make run" to start the program with generic values
+  - "make clean" to clean all files
 
 
-python/ folder contains simple matplotlib functions to plot our design
-Functions are called at the end of the .cpp main
+
+To launch the program with more options you can use the spacefilling binary in src/
+To do so, you have to specify values:
+
+  - ndim		to specify the problem's dimension
+  - npoint		to specify the number of points in the design
+  - optimMethod		to specify the method. Choose between : NM BFGS RS. Default is RS.
+  - estimationMethod	to specify the criteria. Choose between : MC MST NN MM AE KL. Default is MST.
+
+
+NM is the nelder Mead method
+BFGS is a gradient based method (not suited here)
+RS is for simulated annealing
+
+MC is the Monte Carlo method
+MST stands for Minimal Spanning Tree
+NN is Nearest Neighbor
+MM is for Maximin
+AE is a method based on particules
+KL is your typical Shannon Entropy
+
+
+
+The python/ folder contains simple matplotlib functions to plot generated designs

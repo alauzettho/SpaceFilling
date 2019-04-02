@@ -31,10 +31,10 @@ class NelderMead
 	double		m_tolf;
 	double		m_tau1;
 	double		m_tau2;
-	double*		m_tolx;
 	double		m_alpha;
 	double		m_delta;
 	double		m_gamma;
+	double*		m_tolx;
 	Function*	m_function;
 
 	public:

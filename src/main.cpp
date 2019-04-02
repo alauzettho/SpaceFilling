@@ -23,11 +23,11 @@ using namespace std;
 
 
 // ./spacefilling ndim ndpoint RS MST number
-// ndim					Int
-// npoint				Int
+// ndim					INT
+// npoint				INT
 // optim_method 		NM	BFGS	RS
 // estimation_method 	MC	NN		MM	AE	KL	MST
-
+// number				INT (Optional, for benchmark only)
 
 
 void launchOptimization(optim_method optim_method, estimation_method estimation_method,
@@ -82,7 +82,8 @@ int main(int argc, char *argv[])
 
 	int					sys					= 0;
 	int					dim					= (argc > 1) ? atoi(argv[1]) : 2;
-	int					npoint				= (argc > 2) ? atoi(argv[2]) : 16;
+	int					npoint				= (argc > 2) ? atoi(argv[2]) : 81;
+	int					mnumber				= (argc > 5) ? atoi(argv[5]) : 1;
 	double				q					= 1.5;
 	double				f					= 0.0;
 	double*				a					= new double[npoint * dim];
@@ -115,17 +116,17 @@ int main(int argc, char *argv[])
 	sys = system(command.c_str());
 
 
-	// Benchmark Output
-	string fileName	= "../Results/";
-	fileName += argv[4];
-	fileName += "/";
-	fileName += doubleToString(q);
-	fileName += "_";
-	fileName += intToString(dim);
-	fileName += "_";
-	fileName += intToString(npoint);
-	fileName += "_";
-	fileName += argv[5];
+	// // Benchmark Output
+	// string fileName	= "../Results/";
+	// fileName += argv[4];
+	// fileName += "/";
+	// fileName += doubleToString(q);
+	// fileName += "_";
+	// fileName += intToString(dim);
+	// fileName += "_";
+	// fileName += intToString(npoint);
+	// fileName += "_";
+	// fileName += intToString(mnumber);
 
 	// printFinalResults(dim, npoint, 6, param, fVector, fileName);
 

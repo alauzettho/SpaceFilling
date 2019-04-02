@@ -65,7 +65,7 @@ void initializeCenter(int ndim, int npoint, double* param)
 
 	for (int i = 0; i < ndim * npoint; i++)
 	{
-		param[i] = (rand() % 1000000) / 1000000.0;
+		param[i] = (rand() % 100000000) / 100000000.0;
 	}
 }
 
