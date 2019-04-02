@@ -65,16 +65,13 @@ void initializeCenter(int ndim, int npoint, double* param)
 
 	for (int i = 0; i < ndim * npoint; i++)
 	{
-		param[i] = (rand() % 100) / 100.0;
+		param[i] = (rand() % 1000000) / 1000000.0;
 	}
 }
 
 
 void printResults(int ndim, int npoint, double* param, double f)
 {
-	// cout << "##############################################################################################" << endl;
-	// cout << doubleToString(f) << endl;
-
 	cout << endl << "F :	" + doubleToString(f) << endl;
 	cout << endl << "Param :" << endl;
 
@@ -95,7 +92,6 @@ void printFinalResults(int ndim, int npoint, int numberEstim, double* param, dou
 	const char* temp1	= fileName2.c_str();
 	const char* temp2	= fileName1.c_str();
 	
-
 	stdout = freopen(temp1, "w", stdout);
 
 	for (int i = 0; i < numberEstim; i++)

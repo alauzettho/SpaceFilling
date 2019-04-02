@@ -109,7 +109,6 @@ double Function::calcf(double* param)
 	}
 
 
-	// Checking if parameters are within boudaries
 	for (int i = 0; i < m_nparam; i++)
 	{
 		if (param[i] > 1.0 || param[i] < 0.0)
@@ -237,7 +236,6 @@ double Function::minimalSpanningTree(double* param)
 
 	Graph g(V, E);
 
-	// Create Complete Graph
 	for (int i = 0; i < V; i++)
 	{
 		for (int j = i + 1; j < V; j++)
@@ -263,45 +261,6 @@ double Function::minimalSpanningTree(double* param)
 	}
 
 	return(fvalue);
-}
-
-
-void Graph::addEdge(double u, double v, double w)
-{
-	edges.push_back({w, {u, v}});
-}
-
-
-double Graph::kruskalMST(int ndim, double q)
-{
-	double mst_wt	= 0.0;
-	double gamma	= ndim * (1 - q);
-
-
-	sort(edges.begin(), edges.end());
-
-	DisjointSets ds(V);
-
-	vector< pair<double, iPair> >::iterator it;
-
-
-	for (it = edges.begin(); it != edges.end(); it++)
-	{
-		int u = it->second.first;
-		int v = it->second.second;
-
-		int set_u = ds.find(u);
-		int set_v = ds.find(v);
-
-		if (set_u != set_v)
-		{
-			// cout << u << " - " << v << endl;
-			mst_wt += pow(it->first, gamma);
-			ds.merge(set_u, set_v);
-		}
-	}
-
-	return(mst_wt);
 }
 
 
@@ -410,4 +369,43 @@ double Function::shannon(double* param)
 	delete[] diffv;
 
 	return(fvalue);
+}
+
+
+void Graph::addEdge(double u, double v, double w)
+{
+	edges.push_back({w, {u, v}});
+}
+
+
+double Graph::kruskalMST(int ndim, double q)
+{
+	double mst_wt	= 0.0;
+	double gamma	= ndim * (1 - q);
+
+
+	sort(edges.begin(), edges.end());
+
+	DisjointSets ds(V);
+
+	vector< pair<double, iPair> >::iterator it;
+
+
+	for (it = edges.begin(); it != edges.end(); it++)
+	{
+		int u = it->second.first;
+		int v = it->second.second;
+
+		int set_u = ds.find(u);
+		int set_v = ds.find(v);
+
+		if (set_u != set_v)
+		{
+			// cout << u << " - " << v << endl;
+			mst_wt += pow(it->first, gamma);
+			ds.merge(set_u, set_v);
+		}
+	}
+
+	return(mst_wt);
 }

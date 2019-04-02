@@ -25,7 +25,7 @@ Recuit::~Recuit(){}
 
 void Recuit::minimize(double* param, const double* min_param, const double* max_param)
 {
-	// cout << "##############################################################################################" << endl;
+	cout << "##############################################################################################" << endl;
 
 	int		iter			= 0;
 	double	e				= m_function->calcf(param);
@@ -44,7 +44,7 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 	}
 
 
-	// cout << "####################################### Starting Recuit ######################################" << endl;
+	cout << "####################################### Starting Recuit ######################################" << endl;
 
 
 	while (iter < m_maxiter)
@@ -83,7 +83,7 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 	}
 
 
-	// cout << "######################################## Ending Recuit #######################################" << endl;
+	cout << "######################################## Ending Recuit #######################################" << endl;
 
 	for (int i = 0; i < m_nparam; i++)
 	{
@@ -93,7 +93,7 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 	delete[] s;
 	delete[] g;
 
-	// cout << "##############################################################################################" << endl;
+	cout << "##############################################################################################" << endl;
 }
 
 
