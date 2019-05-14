@@ -236,7 +236,7 @@ void NelderMead::minimize(double* param, const double* min_param, const double* 
 		double fval = f[0];
 
 		// Updating Output
-		// printResults(m_ndim, m_npoint, param, fval);
+		printResults(m_ndim, m_npoint, param, fval);
 	}
 
 

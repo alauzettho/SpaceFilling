@@ -65,6 +65,9 @@ void launchOptimization(optim_method optim_method, estimation_method estimation_
 
 	f = function->calcf(param);
 	function->calcFVector(param, fVector);
+	double c = function->barycentreToCenter(param);
+
+	cout << "Distance To Center : " << doubleToString(c) << endl;
 
 	delete function;
 }
@@ -84,7 +87,7 @@ int main(int argc, char *argv[])
 	int					dim					= (argc > 1) ? atoi(argv[1]) : 2;
 	int					npoint				= (argc > 2) ? atoi(argv[2]) : 81;
 	int					mnumber				= (argc > 5) ? atoi(argv[5]) : 1;
-	double				q					= 1.5;
+	double				q					= 0.5;
 	double				f					= 0.0;
 	double*				a					= new double[npoint * dim];
 	double*				b					= new double[npoint * dim];
@@ -103,32 +106,32 @@ int main(int argc, char *argv[])
 
 	time = omp_get_wtime() - time;
 
-	printResults(dim, npoint, param, f);
+	// printResults(dim, npoint, param, f);
 
 
-	// Print Time
-	stdout = freopen ("/dev/tty", "a", stdout);
-	cout << "Time : " << time << endl;
+	// // Print Time
+	// stdout = freopen ("/dev/tty", "a", stdout);
+	// cout << "Time : " << time << endl;
 
 
-	// Python Plot
-	string command = "python ../python/plot.py "  + intToString(dim) + " " + intToString(npoint);
-	sys = system(command.c_str());
+	// // Python Plot
+	// string command = "python ../python/plot.py "  + intToString(dim) + " " + intToString(npoint);
+	// sys = system(command.c_str());
 
 
-	// // Benchmark Output
-	// string fileName	= "../Results/";
-	// fileName += argv[4];
-	// fileName += "/";
-	// fileName += doubleToString(q);
-	// fileName += "_";
-	// fileName += intToString(dim);
-	// fileName += "_";
-	// fileName += intToString(npoint);
-	// fileName += "_";
-	// fileName += intToString(mnumber);
+	// Benchmark Output
+	string fileName	= "../Results/";
+	fileName += argv[4];
+	fileName += "/";
+	fileName += doubleToString(q);
+	fileName += "_";
+	fileName += intToString(dim);
+	fileName += "_";
+	fileName += intToString(npoint);
+	fileName += "_";
+	fileName += intToString(mnumber);
 
-	// printFinalResults(dim, npoint, 6, param, fVector, fileName);
+	printFinalResults(dim, npoint, 6, param, fVector, fileName);
 
 
 	delete[] a;

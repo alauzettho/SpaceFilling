@@ -28,6 +28,8 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 	cout << "##############################################################################################" << endl;
 
 	int		iter			= 0;
+	int		iterOpti		= 0;
+	int		iterLast		= 0;
 	double	e				= m_function->calcf(param);
 	double	m				= e;
 	double	en				= e;
@@ -67,16 +69,20 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 		// Global Optimum
 		if (e < m)
 		{
+			iterOpti++;
+			iterLast = iter + 1;
+
 			for (int i = 0; i < m_nparam; i++)
 			{
 				g[i] = s[i];
 			}
 
 			m = e;
-		}
 
-		// Updating Output
-		// printResults(m_ndim, m_npoint, s, e);
+			// Updating Output
+			printResults(m_ndim, m_npoint, s, e);
+		}
+		
 
 		temp *= m_lambda; 
 		iter++;
@@ -84,6 +90,10 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 
 
 	cout << "######################################## Ending Recuit #######################################" << endl;
+	cout << "Nombre d'iteration imposee		: " << iter 	 << endl;
+	cout << "Derniere iteration ayant optimise	: " << iterLast << endl;
+	cout << "Nombre d'iteration ayant optimise	: " << iterOpti << endl;
+
 
 	for (int i = 0; i < m_nparam; i++)
 	{

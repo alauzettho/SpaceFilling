@@ -36,6 +36,8 @@ class Function
 
 		void	calcFVector(double* param, double* fVector);
 
+		double	barycentreToCenter(double* param);
+
 		double	squareNorm(int size, double* vector);
 
 		double	calcf(double* param);

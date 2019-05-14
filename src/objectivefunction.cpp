@@ -34,6 +34,28 @@ double Function::squareNorm(int size, double* vector)
 }
 
 
+double Function::barycentreToCenter(double* param)
+{
+	double distance		= 0.0;
+	double barycentre	= 0.0;
+
+	for (int i = 0; i < m_ndim; i++)
+	{
+		barycentre = 0.0;
+
+		for (int j = 0; j < m_npoint; j++)
+		{
+			barycentre += param[i * m_npoint + j];
+		}
+
+		barycentre = barycentre / (double)(m_npoint) - 0.5;
+		distance  += barycentre * barycentre;
+	}
+
+	return(sqrt(distance));
+}
+
+
 void Function::calcGradient(double* param, const double f, double* g, int& nfuneval)
 {
 	double	fp;

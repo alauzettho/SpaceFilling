@@ -67,22 +67,31 @@ void initializeCenter(int ndim, int npoint, double* param)
 	{
 		param[i] = (rand() % 100000000) / 100000000.0;
 	}
+
+	// param[0] = 0;
+	// param[1] = 1;
+	// param[2] = 0;
+	// param[3] = 1;
+	// param[4] = 0;
+	// param[5] = 1;
+	// param[6] = 1;
+	// param[7] = 0;
 }
 
 
 void printResults(int ndim, int npoint, double* param, double f)
 {
-	cout << endl << "F :	" + doubleToString(f) << endl;
-	cout << endl << "Param :" << endl;
+	cout << doubleToString(f) << endl;
+	// cout << endl << "Param :" << endl;
 
-	for (int i = 0; i < ndim; i++)
-	{
-		for (int j = 0; j < npoint; j++)
-		{
-			cout << doubleToString(param[i * npoint + j]) + "	";
-		}
-		cout << endl;
-	}
+	// for (int i = 0; i < ndim; i++)
+	// {
+	// 	for (int j = 0; j < npoint; j++)
+	// 	{
+	// 		cout << doubleToString(param[i * npoint + j]) + "	";
+	// 	}
+	// 	cout << endl;
+	// }
 }
 
 
