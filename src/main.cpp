@@ -96,6 +96,7 @@ int main(int argc, char *argv[])
 	output += "/output_";
 	output += intToString(mnumber);
 	const char* temp	= output.c_str();
+	stdout = freopen("../output.txt", "w", stdout);
 	// stdout = freopen(temp, "w", stdout);
 
 
@@ -125,8 +126,8 @@ int main(int argc, char *argv[])
 
 
 	// // Python Plot
-	// string command = "python ../python/plot.py "  + intToString(dim) + " " + intToString(npoint);
-	// sys = system(command.c_str());
+	string command = "python ../python/plot.py "  + intToString(dim) + " " + intToString(npoint);
+	sys = system(command.c_str());
 
 
 	// Benchmark Output

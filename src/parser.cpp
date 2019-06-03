@@ -98,17 +98,17 @@ void generateHypercube(int ndim, int npoint, double* param)
 
 void printResults(int ndim, int npoint, double* param, double f)
 {
-	cout << doubleToString(f) << endl;
-	// cout << endl << "Param :" << endl;
+	cout << "F : " << doubleToString(f) << endl;
+	cout << endl << "Param :" << endl;
 
-	// for (int i = 0; i < ndim; i++)
-	// {
-	// 	for (int j = 0; j < npoint; j++)
-	// 	{
-	// 		cout << doubleToString(param[i * npoint + j]) + "	";
-	// 	}
-	// 	cout << endl;
-	// }
+	for (int i = 0; i < ndim; i++)
+	{
+		for (int j = 0; j < npoint; j++)
+		{
+			cout << doubleToString(param[i * npoint + j]) + "	";
+		}
+		cout << endl;
+	}
 }
 
 
