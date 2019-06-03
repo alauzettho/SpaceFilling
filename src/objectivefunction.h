@@ -35,6 +35,8 @@ class Function
 		void	calcGradient(double* param, const double f, double* g, int& nfuneval);
 
 		void	calcFVector(double* param, double* fVector);
+		
+		void	computeAverageAndSigma(double* param);
 
 		double	barycentreToCenter(double* param);
 

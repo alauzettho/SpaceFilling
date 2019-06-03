@@ -15,7 +15,7 @@ Recuit::Recuit(Function* function, int ndim, int npoint) : m_function (function)
 {
 	m_temp_init		= 10000;
 	m_lambda		= 0.999;
-	m_maxiter		= 5000;
+	m_maxiter		= 1000;
 	m_nparam		= m_npoint * m_ndim;
 }
 
@@ -25,8 +25,6 @@ Recuit::~Recuit(){}
 
 void Recuit::minimize(double* param, const double* min_param, const double* max_param)
 {
-	cout << "##############################################################################################" << endl;
-
 	int		iter			= 0;
 	int		iterOpti		= 0;
 	int		iterLast		= 0;
@@ -46,6 +44,7 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 	}
 
 
+	cout << "##############################################################################################" << endl;
 	cout << "####################################### Starting Recuit ######################################" << endl;
 
 
@@ -78,10 +77,10 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 			}
 
 			m = e;
-
-			// Updating Output
-			printResults(m_ndim, m_npoint, s, e);
 		}
+
+		// Updating Output
+		// printResults(m_ndim, m_npoint, s, e);
 		
 
 		temp *= m_lambda; 
@@ -93,6 +92,7 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 	cout << "Nombre d'iteration imposee		: " << iter 	 << endl;
 	cout << "Derniere iteration ayant optimise	: " << iterLast << endl;
 	cout << "Nombre d'iteration ayant optimise	: " << iterOpti << endl;
+	cout << "##############################################################################################" << endl;
 
 
 	for (int i = 0; i < m_nparam; i++)
@@ -102,8 +102,6 @@ void Recuit::minimize(double* param, const double* min_param, const double* max_
 
 	delete[] s;
 	delete[] g;
-
-	cout << "##############################################################################################" << endl;
 }
 
 

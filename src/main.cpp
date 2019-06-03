@@ -36,6 +36,9 @@ void launchOptimization(optim_method optim_method, estimation_method estimation_
 {
 	Function* function = new Function(estimation_method, ndim, npoint, q);
 
+	// double c = function->barycentreToCenter(param);
+	// cout << "Distance To Center Origine : " << c << endl;
+
 
 	if (optim_method == P_BFGS)
 	{
@@ -64,10 +67,10 @@ void launchOptimization(optim_method optim_method, estimation_method estimation_
 
 
 	f = function->calcf(param);
-	function->calcFVector(param, fVector);
-	double c = function->barycentreToCenter(param);
-
-	cout << "Distance To Center : " << doubleToString(c) << endl;
+	// function->calcFVector(param, fVector);
+	// function->computeAverageAndSigma(param);
+	// c = function->barycentreToCenter(param);
+	// cout << "Distance To Center End : " << c << endl;
 
 	delete function;
 }
@@ -75,14 +78,6 @@ void launchOptimization(optim_method optim_method, estimation_method estimation_
 
 int main(int argc, char *argv[])
 {
-	stdout = freopen("../output.txt", "w", stdout);
-
-	cout << "##############################################################################################" << endl;
-	cout << "##############################################################################################" << endl;
-	cout << "#################################### Space-Filling Design ####################################" << endl;
-	cout << "##############################################################################################" << endl;
-	cout << "##############################################################################################" << endl;
-
 	int					sys					= 0;
 	int					dim					= (argc > 1) ? atoi(argv[1]) : 2;
 	int					npoint				= (argc > 2) ? atoi(argv[2]) : 81;
@@ -95,6 +90,21 @@ int main(int argc, char *argv[])
 	double*				fVector				= new double[6];
 	optim_method		optim_method		= P_RECUIT_SIMULE;
 	estimation_method	estimation_method	= P_MINIMAL_SPANNING_TREE;
+	string				output				= "../Results/";
+
+	output += argv[4];
+	output += "/output_";
+	output += intToString(mnumber);
+	const char* temp	= output.c_str();
+	// stdout = freopen(temp, "w", stdout);
+
+
+	cout << "##############################################################################################" << endl;
+	cout << "##############################################################################################" << endl;
+	cout << "#################################### Space-Filling Design ####################################" << endl;
+	cout << "##############################################################################################" << endl;
+	cout << "##############################################################################################" << endl;
+
 
 
 	parse(dim, npoint, a, b, optim_method, estimation_method, argc, argv);
@@ -106,12 +116,12 @@ int main(int argc, char *argv[])
 
 	time = omp_get_wtime() - time;
 
-	// printResults(dim, npoint, param, f);
+	printResults(dim, npoint, param, f);
 
 
-	// // Print Time
-	// stdout = freopen ("/dev/tty", "a", stdout);
-	// cout << "Time : " << time << endl;
+	// Print Time
+	stdout = freopen ("/dev/tty", "a", stdout);
+	cout << "Time : " << time << endl;
 
 
 	// // Python Plot
@@ -120,18 +130,18 @@ int main(int argc, char *argv[])
 
 
 	// Benchmark Output
-	string fileName	= "../Results/";
-	fileName += argv[4];
-	fileName += "/";
-	fileName += doubleToString(q);
-	fileName += "_";
-	fileName += intToString(dim);
-	fileName += "_";
-	fileName += intToString(npoint);
-	fileName += "_";
-	fileName += intToString(mnumber);
+	// string fileName	= "../Results/";
+	// fileName += argv[4];
+	// fileName += "/";
+	// fileName += doubleToString(q);
+	// fileName += "_";
+	// fileName += intToString(dim);
+	// fileName += "_";
+	// fileName += intToString(npoint);
+	// fileName += "_";
+	// fileName += intToString(mnumber);
 
-	printFinalResults(dim, npoint, 6, param, fVector, fileName);
+	// printFinalResults(dim, npoint, 6, param, fVector, fileName);
 
 
 	delete[] a;

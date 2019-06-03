@@ -18,9 +18,11 @@
 #include <iostream>
 #include <assert.h>
 #include "class.h"
+#include "math.h"
 
 
 void	initializeCenter(int ndim, int npoint, double* param);
+void	generateHypercube(int ndim, int npoint, double* param);
 void	printResults(int ndim, int npoint, double* param, double f);
 void	parse(int ndim, int npoint, double* a, double* b, optim_method& optim_method, estimation_method& estimation_method, int argc, char* argv[]);
 void	printFinalResults(int ndim, int npoint, int numberEstim, double* param, double* fVector, string fileName);

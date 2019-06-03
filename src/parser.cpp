@@ -59,6 +59,8 @@ void parse(int ndim, int npoint, double* a, double* b, optim_method& optim_metho
 
 void initializeCenter(int ndim, int npoint, double* param)
 {
+	// Choose the INIT you want
+
 	time_t timer;
 	time(&timer);
 	srand(timer);
@@ -68,14 +70,29 @@ void initializeCenter(int ndim, int npoint, double* param)
 		param[i] = (rand() % 100000000) / 100000000.0;
 	}
 
-	// param[0] = 0;
-	// param[1] = 1;
-	// param[2] = 0;
-	// param[3] = 1;
-	// param[4] = 0;
-	// param[5] = 1;
-	// param[6] = 1;
-	// param[7] = 0;
+	// generateHypercube(ndim, npoint, param);
+}
+
+
+void generateHypercube(int ndim, int npoint, double* param)
+{
+	int nrow = pow(2, ndim);
+
+	if (npoint != nrow)
+	{
+		cout << "ERROR DIM !!" << endl;
+		return;
+	}
+
+	for (int i = 0; i < ndim; i++)
+	{
+		int d = pow(2, i);
+
+		for (int j = 0; j < npoint; j++)
+		{
+			param[i * npoint + j] = (j / d) % 2;
+		}
+	}
 }
 
 

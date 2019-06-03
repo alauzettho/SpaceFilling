@@ -56,6 +56,80 @@ double Function::barycentreToCenter(double* param)
 }
 
 
+void Function::computeAverageAndSigma(double* param)
+{
+	double	avg		= 0.0;
+	double	std		= 0.0;
+	double	dist	= 0.0;
+	double	norm 	= 0.0;
+	double* diffv	= new double[m_ndim];
+
+
+	for (int i = 0; i < m_npoint; i++)
+	{
+		dist = 1e+15;
+
+		for (int j = 0; j < m_npoint; j++)
+		{
+			if (i != j)
+			{
+				for (int k = 0; k < m_ndim; k++)
+				{
+					diffv[k] = param[k * m_npoint + i] - param[k * m_npoint + j];
+				}
+				
+				norm = sqrt(squareNorm(m_ndim, diffv));
+
+				if (norm < dist)
+				{
+					dist = norm;
+				}
+			}
+		}
+
+		avg += dist;
+	}
+
+
+	avg /= (m_npoint * (m_npoint - 1)) / 2;
+
+
+	for (int i = 0; i < m_npoint; i++)
+	{
+		dist = 1e+15;
+
+		for (int j = 0; j < m_npoint; j++)
+		{
+			if (i != j)
+			{
+				for (int k = 0; k < m_ndim; k++)
+				{
+					diffv[k] = param[k * m_npoint + i] - param[k * m_npoint + j];
+				}
+				
+				norm = sqrt(squareNorm(m_ndim, diffv));
+
+				if (norm < dist)
+				{
+					dist = norm;
+				}
+			}
+		}
+
+		std += (dist - avg) * (dist - avg);
+	}
+
+
+	std /= (m_npoint * (m_npoint - 1)) / 2;
+	std  = sqrt(std);
+
+
+	cout << avg << " " << std << endl;
+
+	delete[] diffv;
+}
+
+
 void Function::calcGradient(double* param, const double f, double* g, int& nfuneval)
 {
 	double	fp;
